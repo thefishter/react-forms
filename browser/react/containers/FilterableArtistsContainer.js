@@ -7,8 +7,10 @@ export default class FilterableArtistsContainer extends Component {
   constructor (props) {
     super(props);
     this.state = {
-      inputValue: ""
+      inputValue: ''
     }
+    // we needed to bind 'this' to the method
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange (event) {
@@ -21,15 +23,18 @@ export default class FilterableArtistsContainer extends Component {
 
   render () {
     const inputValue = this.state.inputValue;
-    const filteredArtists = this.props.artists.filter((artist) =>
-      artist.name.match(inputValue))
+    const filteredArtists = this.props.artists.filter(artist =>
+      artist.name.toLowerCase().match(inputValue.toLowerCase()));
+      {/* need to change artist.name and input value to lowercase so that they'll match */}
+
+      { console.log('IMPUT VALUE: ', inputValue);}
 
     return (
       <div>
-        <FilterInput handleChange={ this.handleChange }/>
-        <Artists artists={ filteredArtists }/>
+        <FilterInput handleChange={ this.handleChange } />
+        <Artists artists={ filteredArtists } />
       </div>
-    )
+    );
   }
 
 }
